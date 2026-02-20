@@ -1,44 +1,73 @@
 #include <Arduino.h>
 /**
- * @file main.ino
- * @brief Embedded Light Intensity Monitoring using LDR
- * @author YOUR_NAME
- * @date YYYY-MM-DD
+ * @file main.cpp
+ * @brief LDR-based Light Intensity Monitoring
+ * @author yatendraguptacsaiml24-hub (Yatendra Kumar Gupta)   
+ * @date 20-02-2026
  *
  * @details
- * Reads analog brightness data from LDR sensor
- * and displays structured output via Serial Monitor.
+ * This sketch reads analog brightness data from an LDR (Light Dependent Resistor)
+ * connected to an analog input (A0). It prints the raw ADC reading and a
+ * human-readable brightness status to the Serial Monitor every second.
+ *
+ * The program is intended as a simple data acquisition and monitoring demo
+ * for educational and prototyping purposes.
  */
 
- // TODO 1:
- // Define LDR analog pin (Use A0)
+// Pin connected to the LDR voltage divider output
+int LDR_PIN = A0; /**< @brief Analog pin used to read LDR voltage */
 
- // TODO 2:
- // Create variable to store sensor reading
+// Last-read raw ADC value from the LDR circuit
+int ldrValue = 0; /**< @brief Stores the most recent analogRead() result */
 
+/**
+ * @brief Arduino setup routine
+ *
+ * Initializes Serial communication at 9600 baud and prints a startup banner
+ * to the Serial Monitor. This function runs once when the board powers up
+ * or resets.
+ *
+ * @note No parameters or return value. Side effects: opens Serial.
+ */
 void setup() {
 
-    // TODO 3:
-    // Initialize Serial communication (9600 baud rate)
+    Serial.begin(9600);
 
-    // TODO 4:
-    // Print system initialization message
+    Serial.println("=================================");
+    Serial.println("  LDR Light Intensity Monitor");
+    Serial.println("  System Initializing...");
+    Serial.println("=================================");
 }
 
+/**
+ * @brief Main Arduino loop
+ *
+ * Reads the analog value from the LDR pin, prints the raw ADC value, and
+ * classifies the environment as either "Bright Environment" or
+ * "Dark Environment" based on a simple threshold. The results are written
+ * to the Serial Monitor once per second.
+ *
+ * @note No parameters or return value. Side effects: performs analogRead()
+ * and writes to Serial.
+ */
 void loop() {
 
-    // TODO 5:
-    // Read analog value from LDR
+    ldrValue = analogRead(LDR_PIN);
 
-    // TODO 6:
-    // Print raw ADC value
+    Serial.print("Raw ADC Value: ");
+    Serial.println(ldrValue);
 
-    // TODO 7:
-    // Apply threshold logic (Bright / Dark detection)
+    String brightnessStatus;
 
-    // TODO 8:
-    // Print brightness status
+    if (ldrValue < 500) {
+        brightnessStatus = "Bright Environment";
+    } else {
+        brightnessStatus = "Dark Environment";
+    }
 
-    // TODO 9:
-    // Add delay (500ms or 1 second)
+    Serial.print("Status: ");
+    Serial.println(brightnessStatus);
+    Serial.println("---------------------------------");
+
+    delay(1000);
 }
