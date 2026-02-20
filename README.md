@@ -17,8 +17,6 @@ An embedded light intensity monitoring system using a Light Dependent Resistor (
 - Wiring Connections
 - Working Principle
 - Code Structure
-- Documentation Requirement
-- Submission Requirements
 - Future Improvements
 - License
 
